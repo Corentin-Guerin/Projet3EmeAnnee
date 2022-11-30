@@ -14,10 +14,10 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - whatIsPlayer
+  - whatIsGround
+  - whatIsWall
+  - whatIsTarget
   - 
   - 
   - 

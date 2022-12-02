@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ProjectGaussScene.unity
+    path: Assets/Scenes/NakaginScene.unity
     guid: 7d3069169983e184994bcbe24bb21bfe
   m_configObjects: {}

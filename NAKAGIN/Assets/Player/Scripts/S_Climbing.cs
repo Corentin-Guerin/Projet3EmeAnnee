@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class S_Climbing : MonoBehaviour
+public class Climbing : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform _orientation;
     [SerializeField] private Rigidbody rb;
-    public S_PlayerMovement pm;
+    public PlayerMovement pm;
     [SerializeField] private LayerMask _whatIsWall;
 
     [Header("Climbing")]
@@ -47,7 +47,7 @@ public class S_Climbing : MonoBehaviour
         WallCheck();
         StateMachine();
 
-        if (_isClimbing && !_isExitingWall) 
+        if (_isClimbing && !_isExitingWall)
         {
             ClimbingMovement();
         }
@@ -68,16 +68,16 @@ public class S_Climbing : MonoBehaviour
             {
                 _climbTimer -= Time.deltaTime;
             }
-            if (_climbTimer < 0) 
-            { 
-                StopClimbing(); 
-            } 
+            if (_climbTimer <= 0)
+            {
+                StopClimbingByTime();
+            }
         }
 
         //State 2 - Exiting
         else if (_isExitingWall)
         {
-            if (_isClimbing) StopClimbing();
+            if (_isClimbing) StopClimbingByReachPoint();
 
             if (_exitingWallTimer > 0) _exitingWallTimer -= Time.deltaTime;
             if (_exitingWallTimer < 0) _isExitingWall = false;
@@ -88,11 +88,12 @@ public class S_Climbing : MonoBehaviour
         {
             if (_isClimbing)
             {
-                StopClimbing();
+                StopClimbingByReachPoint();
             }
         }
 
-        if(_isWallFront && Input.GetKeyDown(jumpKey) && _climbJumpsLeft > 0){
+        if (_isWallFront && Input.GetKeyDown(jumpKey) && _climbJumpsLeft > 0)
+        {
             ClimbJump();
         }
     }
@@ -110,7 +111,8 @@ public class S_Climbing : MonoBehaviour
         }
     }
 
-    private void StartClimbing() {
+    private void StartClimbing()
+    {
         _isClimbing = true;
         pm._isClimbing = true;
 
@@ -118,11 +120,19 @@ public class S_Climbing : MonoBehaviour
         _lastWallNormal = _frontWallHit.normal;
     }
 
-    private void ClimbingMovement() {
+    private void ClimbingMovement()
+    {
         rb.velocity = new Vector3(rb.velocity.x, _climbSpeed, rb.velocity.z);
     }
 
-    private void StopClimbing() {
+    private void StopClimbingByReachPoint()
+    {
+        _isClimbing = false;
+        pm._isClimbing = false;
+        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+    }
+    private void StopClimbingByTime()
+    {
         _isClimbing = false;
         pm._isClimbing = false;
         rb.AddForce(Vector3.down * _counterClimbPropulsion, ForceMode.Impulse);

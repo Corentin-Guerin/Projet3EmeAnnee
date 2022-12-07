@@ -22,6 +22,7 @@ public class S_Climbing : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private int _climbJumps;
     [SerializeField] private int _climbJumpsLeft;
+    [SerializeField] private int _counterClimbPropulsion;
 
     [Header("Detection")]
     [SerializeField] private float _detectionLength;

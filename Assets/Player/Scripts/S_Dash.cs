@@ -18,7 +18,7 @@ public class S_Dash : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private bool _isUsingCameraForward = true;
     [SerializeField] private bool _isAllowingAllDirections = true;
-    //[SerializeField] private bool _isDisablingGravity = true;
+    [SerializeField] private bool _isDisablingGravity = true;
     [SerializeField] private bool _isResettingVel = true;
 
     [Header("Cooldown")]
@@ -62,8 +62,8 @@ public class S_Dash : MonoBehaviour
         Vector3 direction = GetDirection(forwardT);
         Vector3 forceToApply = direction * _dashForce + orientation.up * _dashUpwardForce;
 
-        //if (_isDisablingGravity)
-         //   _rb.useGravity = false;
+        if (_isDisablingGravity)
+               _rb.useGravity = false;
 
         delayedForceToApply = forceToApply;
         Invoke(nameof(DelayedDashForce), 0.025f);
@@ -85,9 +85,10 @@ public class S_Dash : MonoBehaviour
     {
         _pm._isDashing = false;
 
-        //if (_isDisablingGravity)
-        ////    _rb.useGravity = true;
-        //}
+        if (_isDisablingGravity)
+        {
+            _rb.useGravity = true;
+        }
     }
 
     private Vector3 GetDirection(Transform forwardT)

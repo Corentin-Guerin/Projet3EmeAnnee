@@ -24,7 +24,7 @@ public class S_RotationPlatformes : MonoBehaviour
     {
         if (_startMoving == true)
         {
-            //_alpha += Time.deltaTime;
+            
             if (_alpha >= 1)
             {
                 _startMoving = false;
@@ -63,7 +63,7 @@ public class S_RotationPlatformes : MonoBehaviour
         {
             _centerPlatforms.transform.Rotate( Vector3.right * _degre * _alphaSpeed );
             _alpha += _alphaSpeed;
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(0.01f);
         }
         
     }
@@ -73,18 +73,17 @@ public class S_RotationPlatformes : MonoBehaviour
         {
             _centerPlatforms.transform.Rotate(Vector3.left * _degre * _alphaSpeed);
             _alpha += _alphaSpeed ;
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(0.01f);
         }
 
     }
 
-
-    public void BoxTriggersEnter()
+    public void OnTriggersEnter()
     {
         Debug.Log("Trigger");
         _isTrigger = true;
     }
-    public void BoxTriggersExit()
+    public void OnTriggersExit()
     {
         Debug.Log("NON Trigger");
         _isTrigger = false;

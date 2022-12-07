@@ -7,6 +7,7 @@ public class S_PauseMenu : MonoBehaviour
 
     public GameObject _pauseMenu;
     public static bool _isPaused;
+    private bool _ischoose;
 
     void Start()
     {
@@ -43,30 +44,60 @@ public class S_PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        _pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
-        //AudioListener = true;
-        _isPaused = false;
+        if (!_ischoose)
+        {
+            StartCoroutine(waitcastchoose());
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            _pauseMenu.SetActive(false);
+            Time.timeScale = 1f;
+            //AudioListener = true;
+            _isPaused = false;
+
+        }
+       
     }
 
     public void RestartLevel()
     {
-        ResumeGame();
-        Scene _scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(_scene.name);
+        if (!_ischoose)
+        {
+            Debug.Log("RestartLevel");
+            ResumeGame();
+            StartCoroutine(waitcastchoose());
+            Scene _scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(_scene.name);
+        }
         
     }
 
     public void MainMenu()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu_Scene");
+        if (!_ischoose)
+        {
+            StartCoroutine(waitcastchoose());
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MainMenu_Scene");
+        }
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        if (!_ischoose)
+        {
+            StartCoroutine(waitcastchoose());
+            Application.Quit();
+        }
     }
+
+    IEnumerator waitcastchoose()
+    {
+        _ischoose = true;
+        yield return new WaitForSeconds(0.01f);
+        Debug.Log("IEnumerator");
+        _ischoose = false;
+    }
+
+
+
 }

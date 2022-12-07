@@ -63,7 +63,7 @@ public class S_RotationPlatformes : MonoBehaviour
         {
             _centerPlatforms.transform.Rotate( Vector3.right * _degre * _alphaSpeed );
             _alpha += _alphaSpeed;
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(0.01f);
         }
         
     }
@@ -73,7 +73,7 @@ public class S_RotationPlatformes : MonoBehaviour
         {
             _centerPlatforms.transform.Rotate(Vector3.left * _degre * _alphaSpeed);
             _alpha += _alphaSpeed ;
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(0.01f);
         }
 
     }

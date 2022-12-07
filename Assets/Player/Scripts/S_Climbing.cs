@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Climbing : MonoBehaviour
+public class S_Climbing : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform _orientation;
     [SerializeField] private Rigidbody rb;
-    public PlayerMovement pm;
+    public S_PlayerMovement pm;
     [SerializeField] private LayerMask _whatIsWall;
 
     [Header("Climbing")]
@@ -129,13 +129,12 @@ public class Climbing : MonoBehaviour
     {
         _isClimbing = false;
         pm._isClimbing = false;
-        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        rb.AddForce(Vector3.down * _counterClimbPropulsion, ForceMode.Impulse);
     }
     private void StopClimbingByTime()
     {
         _isClimbing = false;
         pm._isClimbing = false;
-        rb.AddForce(Vector3.down * _counterClimbPropulsion, ForceMode.Impulse);
     }
 
     private void ClimbJump()

@@ -38,6 +38,7 @@ public class S_WallRunning : MonoBehaviour
     public bool _isWallLeft;
     public bool _isWallRight;
     [SerializeField] private bool _isWallRemembered;
+    [SerializeField] private float _angleValue;
 
     [Header("Exiting")]
     private bool _isExitingWall;
@@ -77,8 +78,14 @@ public class S_WallRunning : MonoBehaviour
     }
     private void CheckForWall()
     {
-        _isWallRight = Physics.Raycast(transform.position, _orientation.right, out _rightWallHit, _wallCheckDistance, _whatIsWall);
-        _isWallLeft = Physics.Raycast(transform.position, -_orientation.right, out _leftWallHit, _wallCheckDistance, _whatIsWall);
+        //Vector3 currentAnglesRight = _orientation.right; //original Right
+        //Vector3 currentAnglesLeft = -_orientation.right; //original Left
+        //Vector3 currentAnglesRight = -_orientation.forward+_orientation.right; //degueux mais fonctionne à peu près
+        Vector3 currentAnglesLeftv2 = Quaternion.AngleAxis(-_angleValue, _orientation.up) * _orientation.forward;
+        Vector3 currentAnglesRightv2 = Quaternion.AngleAxis(_angleValue, _orientation.up) * _orientation.forward;
+
+        _isWallRight = Physics.Raycast(transform.position, currentAnglesRightv2, out _rightWallHit, _wallCheckDistance, _whatIsWall);
+        _isWallLeft = Physics.Raycast(transform.position, currentAnglesLeftv2, out _leftWallHit, _wallCheckDistance, _whatIsWall);
 
         if ((_isWallLeft || _isWallRight) && NewWallHit())
         {

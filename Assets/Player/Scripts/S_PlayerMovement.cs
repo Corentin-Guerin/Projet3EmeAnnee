@@ -36,7 +36,7 @@ public class S_PlayerMovement : MonoBehaviour
     private float _startYScale;
 
     [Header("Keybinds")]
-    public KeyCode _jumpKey = KeyCode.Space;
+    //public KeyCode _jumpKey = KeyCode.Space;
     public KeyCode _sprintKey = KeyCode.LeftShift;
     public KeyCode _crouchKey = KeyCode.LeftControl;
 
@@ -123,7 +123,7 @@ public class S_PlayerMovement : MonoBehaviour
         _verticalInput = Input.GetAxisRaw("Vertical");
 
         //when to jump
-        if (Input.GetKey(_jumpKey) && _readyToJump && _isGrounded)
+        if (Input.GetButtonDown("Jump") && _readyToJump && _isGrounded)
         {
             _readyToJump = false;
 

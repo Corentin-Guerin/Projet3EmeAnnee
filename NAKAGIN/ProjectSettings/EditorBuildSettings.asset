@@ -6,6 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/Scenes/CorentinScene.unity
+=======
+    path: Assets/Scenes/Tom_Scene.unity
+>>>>>>> e722a86a61ec04abc9cd47058f94d45475165b37
     guid: 7d3069169983e184994bcbe24bb21bfe
   m_configObjects: {}

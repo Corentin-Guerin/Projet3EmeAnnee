@@ -11,6 +11,7 @@ public class S_PlayerCam : MonoBehaviour
     public S_WallRunning wr;
     public Transform _orientation;
     public Transform player;
+    public S_Climbing ClimbingScript;
 
     float _xRotation;
     float _yRotation;
@@ -24,6 +25,7 @@ public class S_PlayerCam : MonoBehaviour
     [SerializeField] private float _wallRunFovTime;
     [SerializeField] [Range(0, 30)] private float _camTiltWR;
     [SerializeField] [Range(0, 30)] private float _camTiltSlide;
+    [SerializeField] [Range(0, 30)] private float _camTiltClimbAchieved;
     [SerializeField] private float _camTiltTime;
     [SerializeField] private float _wallSlideFovTime;
     [SerializeField] private float _wallSlideFov;
@@ -89,6 +91,20 @@ public class S_PlayerCam : MonoBehaviour
         else
         {
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, _fov, _wallSlideFovTime* Time.deltaTime);
+            tilt = Mathf.Lerp(tilt, 0, _camTiltTime * Time.deltaTime);
+        }
+    }
+
+    private void CameraTiltClimb()
+    {
+        if (ClimbingScript._isAchievedClimb)
+        {
+            //cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, _wallSlideFov, _wallSlideFovTime * Time.deltaTime);
+            tilt = Mathf.Lerp(tilt, _camTiltClimbAchieved, _camTiltTime * Time.deltaTime);
+        }
+        else
+        {
+            //cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, _fov, _wallSlideFovTime* Time.deltaTime);
             tilt = Mathf.Lerp(tilt, 0, _camTiltTime * Time.deltaTime);
         }
     }

@@ -41,6 +41,8 @@ public class S_Climbing : MonoBehaviour
     public bool _isExitingWall;
     [SerializeField] private float _exitWallTime;
     private float _exitingWallTimer;
+    public bool _isAchievedClimb;
+    [SerializeField] private float _AnimationClimbTime;
 
     private void Update()
     {
@@ -129,7 +131,9 @@ public class S_Climbing : MonoBehaviour
     {
         _isClimbing = false;
         pm._isClimbing = false;
+        _isAchievedClimb = true;
         rb.AddForce(Vector3.down * _counterClimbPropulsion, ForceMode.Impulse);
+        StartCoroutine(EndClimbingAnimation());
     }
     private void StopClimbingByTime()
     {
@@ -147,5 +151,11 @@ public class S_Climbing : MonoBehaviour
         rb.AddForce(forceToApply, ForceMode.Impulse);
 
         _climbJumpsLeft--;
+    }
+
+    IEnumerator EndClimbingAnimation()
+    {
+        yield return new WaitForSeconds(_AnimationClimbTime);
+        _isAchievedClimb = false;
     }
 }

@@ -94,7 +94,6 @@ public class S_PauseMenu : MonoBehaviour
     {
         _ischoose = true;
         yield return new WaitForSeconds(0.01f);
-        Debug.Log("IEnumerator");
         _ischoose = false;
     }
 

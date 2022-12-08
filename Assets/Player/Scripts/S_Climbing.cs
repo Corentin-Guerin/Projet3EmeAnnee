@@ -129,7 +129,7 @@ public class S_Climbing : MonoBehaviour
     {
         _isClimbing = false;
         pm._isClimbing = false;
-        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        rb.AddForce(Vector3.down * _counterClimbPropulsion, ForceMode.Impulse);
     }
     private void StopClimbingByTime()
     {
